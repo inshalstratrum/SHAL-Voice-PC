@@ -23,7 +23,7 @@ jobs:
           flutter analyze
           flutter build apk --release
       - name: Upload workflow artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: SHAL-Voice-PC-APK
           path: Mobile-App-Flutter/build/app/outputs/flutter-apk/app-release.apk
