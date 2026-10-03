@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile backend
+        shell: pwsh
+        run: |
+          if (Test-Path PC-Backend/agent_backend.py) {
+            python -m py_compile PC-Backend/agent_backend.py PC-Backend/desktop_bridge.py PC-Backend/start_server.pyw PC-Backend/pairing_helper.pyw
+          } else {
+            Write-Host "Backend source has not been imported yet."
+          }
+
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Analyze Flutter app
+        run: |
+          if [ -f Mobile-App-Flutter/pubspec.yaml ]; then
+            cd Mobile-App-Flutter
+            flutter pub get
+            flutter analyze
+          else
+            echo "Flutter source has not been imported yet."
+          fi
