@@ -1,0 +1,43 @@
+name: Bug report
+description: Report a reproducible SHAL Voice PC problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem and the expected behavior.
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+  - type: input
+    id: android
+    attributes:
+      label: Android device and version
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Control layer
+      options:
+        - Windows UI Automation
+        - Vision-based screen control
+        - Keyboard / mouse automation
+        - Native Windows / system control
+        - Android app
+        - Networking / Tailscale
+        - Other
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or screenshots
+      description: Remove credentials and private data before posting.
