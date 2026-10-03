@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: SHAL Voice PC
+message: If you use SHAL Voice PC in research, testing, or a technical article, please cite this repository.
+type: software
+authors:
+  - family-names: inshalstratrum
+repository-code: https://github.com/inshalstratrum/SHAL-Voice-PC
+url: https://github.com/inshalstratrum/SHAL-Voice-PC
+license: proprietary
+keywords:
+  - Windows voice control
+  - AI desktop automation
+  - computer-use agent
+  - computer vision GUI automation
+  - Windows UI Automation
+  - Android remote control
+  - multimodal AI
