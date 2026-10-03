@@ -9,39 +9,53 @@
 ![Platform](https://img.shields.io/badge/platform-Windows%20%2B%20Android-blue)
 ![Status](https://img.shields.io/badge/status-active%20development-orange)
 
-SHAL Voice PC is an experimental **Windows voice assistant, multimodal desktop automation system, and computer-use agent** designed to control a real Windows PC from natural-language voice commands on Android.
+SHAL Voice PC is an experimental **Windows voice assistant, multimodal desktop automation system, and computer-use agent** for controlling a real Windows PC from natural-language voice commands on Android.
 
-Unlike simple macro tools, SHAL Voice PC is being built around an **observe → understand → act → verify → recover** loop. The agent can inspect what is actually on screen, choose the safest available control method, perform the action, verify the result, and continue toward the user's goal.
+Instead of depending on a fixed macro list, the project is being built around an **observe → understand → act → verify → recover** loop. The agent combines screenshot vision, Windows accessibility information, keyboard/mouse input, and native system actions to choose how to operate the desktop.
 
-## Why this project exists
+## Table of contents
 
-Most desktop voice assistants are limited to fixed phrases such as “open Chrome” or “turn the volume down.” SHAL Voice PC aims to handle broader goals such as:
+- [Why SHAL Voice PC?](#why-shal-voice-pc)
+- [Four control layers](#four-control-layers)
+- [How the agent works](#how-the-agent-works)
+- [Features](#features)
+- [Vision-based screen control](#vision-based-screen-control)
+- [Windows UI Automation](#windows-ui-automation)
+- [Android controller](#android-controller)
+- [Security model](#security-model)
+- [Documentation](#documentation)
+- [Roadmap](#roadmap)
+- [Use cases](#use-cases)
+- [Contributing](#contributing)
+- [Project status](#project-status)
+
+## Why SHAL Voice PC?
+
+Most desktop voice assistants are limited to fixed phrases such as “open Chrome” or “turn the volume down.” SHAL Voice PC is designed for broader computer-use goals such as:
 
 > “Open Chrome, go to Gmail, open the newest email from John, summarize it, then go back and open Downloads.”
 
-The system is designed to inspect the desktop after meaningful steps rather than blindly replaying a fixed macro.
+The intended behavior is to inspect the desktop after meaningful steps, determine what changed, select the safest available control method, and continue instead of blindly replaying a fixed macro.
 
 ## Four control layers
 
-SHAL Voice PC combines four complementary control layers:
-
 | Layer | What it does |
 |---|---|
-| **Windows UI Automation** | Controls accessible buttons, fields, menus, tabs, lists, toggles, and other normal Windows controls |
+| **Windows UI Automation** | Controls accessible buttons, fields, menus, tabs, lists, toggles, and other standard Windows controls |
 | **Vision-based screen control** | Understands visible UI and clicks by screen location when accessibility metadata is missing |
-| **Keyboard / mouse automation** | Provides a general fallback for ordinary desktop interaction |
+| **Keyboard / mouse automation** | Provides a broad fallback for ordinary desktop interaction |
 | **Native Windows / system control** | Handles files, processes, services, audio, networking, power, and other OS-level operations |
 
-## Core architecture
+## How the agent works
 
 ```mermaid
 flowchart LR
-    Voice["Natural-language voice goal"] --> Observe["Observe desktop"]
-    Observe --> State["Fuse screen + UIA + system state"]
+    Goal["Natural-language goal"] --> Observe["Observe desktop"]
+    Observe --> State["Fuse screen + UIA + Windows state"]
     State --> Plan["Choose safest next action"]
 
     Plan --> Native["Native Windows"]
-    Plan --> UIA["Windows UI Automation"]
+    Plan --> UIA["UI Automation"]
     Plan --> Vision["Computer Vision"]
     Plan --> KM["Keyboard / Mouse"]
 
@@ -54,6 +68,15 @@ flowchart LR
     Done -- No --> Observe
     Done -- Yes --> Reply["Show / speak result"]
 ```
+
+The preferred action order is:
+
+1. native typed action
+2. application-specific adapter
+3. Windows UI Automation
+4. keyboard shortcut
+5. vision-guided pointer action
+6. coordinate fallback
 
 ## Features
 
@@ -80,7 +103,7 @@ flowchart LR
 
 ## Vision-based screen control
 
-The vision layer is designed for cases where Windows accessibility data is incomplete or unavailable.
+The vision layer is designed for cases where Windows accessibility information is incomplete or unavailable.
 
 It can:
 
@@ -93,7 +116,7 @@ It can:
 - wait for a requested visual state
 - verify that the screen changed after an action
 
-This enables control of custom-drawn or unusual desktop interfaces that normal accessibility automation cannot fully inspect.
+This is important for custom-rendered applications where ordinary accessibility automation does not expose every visible control.
 
 ## Windows UI Automation
 
@@ -110,16 +133,16 @@ The structured UIA layer supports:
 - Control-state reading
 - Element bounds for screen correlation
 
-## Mobile Android controller
+## Android controller
 
-The Flutter app is designed to provide:
+The Flutter mobile app is designed to provide:
 
 - voice input
 - assistant status
 - spoken responses
 - live PC screen
 - tap / double-tap / right-click interactions
-- safe confirmations
+- confirmations for consequential operations
 - task interruption
 - manual fallback control
 
@@ -131,14 +154,26 @@ SHAL Voice PC controls a real computer, so safety is part of the architecture.
 - It is **not intentionally given unrestricted model-generated shell access**.
 - Consequential operations can require explicit user confirmation.
 - The backend is intended to run over a **private Tailscale network**, not direct public Internet exposure.
-- Pairing keys, local databases, logs, generated speech, build output, and credentials should remain outside source control.
+- Credentials, pairing material, local databases, logs, signing keys, and private runtime data should remain outside source control.
 
-## Development roadmap
+Read the [Security Policy](SECURITY.md).
 
-Major work areas include:
+## Documentation
 
-- autonomous observe / act / verify task loop
-- richer visual reasoning
+- [Architecture](docs/ARCHITECTURE.md)
+- [Getting Started](docs/GETTING-STARTED.md)
+- [Public Roadmap](docs/ROADMAP.md)
+- [Project Status](docs/PROJECT-STATUS.md)
+- [Support](SUPPORT.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+
+## Roadmap
+
+Current areas of work include:
+
+- persistent autonomous observe / act / verify orchestration
+- richer visual reasoning and target tracking
 - browser / DOM-aware control
 - typed file-system operations
 - clipboard state
@@ -147,8 +182,11 @@ Major work areas include:
 - long-running task monitoring
 - reliability across different Windows applications
 - safer recovery and verification behavior
+- public installer / updater and release packaging
 
-## Intended use cases
+See the full [Public Roadmap](docs/ROADMAP.md).
+
+## Use cases
 
 SHAL Voice PC is relevant to developers, researchers, and advanced users interested in:
 
@@ -161,15 +199,9 @@ SHAL Voice PC is relevant to developers, researchers, and advanced users interes
 - Android-to-PC remote control
 - local AI assistants
 - hands-free computer control
-- smart desktop agents
 - accessibility automation
 - remote Windows automation
-
-## Project status
-
-This repository is under active development. Some features are already implemented and tested, while full universal autonomous control remains a work in progress.
-
-The project intentionally avoids claiming complete control of secure Windows surfaces such as UAC Secure Desktop, the login screen, BIOS/UEFI, or third-party anti-automation systems.
+- visual desktop agents
 
 ## Contributing
 
@@ -183,9 +215,15 @@ If this project is useful or interesting to you, consider **starring the reposit
 
 Generated APKs should be distributed through **GitHub Releases**, not committed directly to the source tree.
 
-Release automation is planned so tagged versions can build the Android APK and publish it automatically.
+A tag-driven Android release workflow is included so version tags can build the Flutter APK and attach it to a GitHub Release after the complete public source tree is available.
 
-## Search keywords
+## Project status
+
+**Active development.** The documentation and GitHub automation are public, while the repository is still being prepared for the first complete public source release.
+
+See [Project Status](docs/PROJECT-STATUS.md).
+
+## Search terms
 
 Windows voice control, AI desktop automation, AI computer-use agent, computer vision GUI automation, Windows UI Automation, Android PC remote control, multimodal desktop assistant, hands-free Windows control, local AI assistant, FastAPI desktop automation, Flutter remote control, Tailscale remote desktop, AI screen control, visual desktop automation.
 
