@@ -28,7 +28,7 @@ jobs:
           name: SHAL-Voice-PC-APK
           path: Mobile-App-Flutter/build/app/outputs/flutter-apk/app-release.apk
       - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: Mobile-App-Flutter/build/app/outputs/flutter-apk/app-release.apk
           generate_release_notes: true
