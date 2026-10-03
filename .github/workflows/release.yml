@@ -1,0 +1,34 @@
+name: Build Android Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Build release APK
+        run: |
+          cd Mobile-App-Flutter
+          flutter pub get
+          flutter analyze
+          flutter build apk --release
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SHAL-Voice-PC-APK
+          path: Mobile-App-Flutter/build/app/outputs/flutter-apk/app-release.apk
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Mobile-App-Flutter/build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
