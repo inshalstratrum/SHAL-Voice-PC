@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an improvement for SHAL Voice PC
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: User goal
+      description: What should a user be able to accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Example workflow
+      description: Give a natural-language example if possible.
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety or confirmation considerations
