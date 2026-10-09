@@ -219,7 +219,7 @@ A tag-driven Android release workflow is included so version tags can build the 
 
 ## Project status
 
-**Active development.** The documentation and GitHub automation are public, while the repository is still being prepared for the first complete public source release.
+**Active development — v0.4.0.** The complete source code for both the Windows backend (`PC-Backend/`) and the Android mobile controller (`Mobile-App-Flutter/`) is available in this repository.
 
 See [Project Status](docs/PROJECT-STATUS.md).
 
@@ -229,4 +229,4 @@ Windows voice control, AI desktop automation, AI computer-use agent, computer vi
 
 ## License
 
-No open-source license has been selected yet. Until a license is added, normal copyright rules apply.
+This project is licensed under the [MIT License](LICENSE).

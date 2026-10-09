@@ -1,0 +1,36 @@
+{
+  "port": 8765,
+  "pairing_key": "",
+  "apps": {
+    "chrome": {
+      "kind": "exe",
+      "value": "chrome.exe",
+      "title": "Chrome",
+      "process": "chrome"
+    },
+    "obsidian": {
+      "kind": "shell",
+      "value": "md.obsidian",
+      "title": "Obsidian",
+      "process": "Obsidian"
+    },
+    "antigravity": {
+      "kind": "exe",
+      "value": "C:\\Users\\YOUR_USER\\AppData\\Local\\Programs\\antigravity\\Antigravity.exe",
+      "title": "Antigravity",
+      "process": "Antigravity"
+    },
+    "chatgpt": {
+      "kind": "shell",
+      "value": "OpenAI.Codex_2p2nqsd0c76g0!App",
+      "title": "ChatGPT",
+      "process": "ChatGPT"
+    },
+    "codex": {
+      "kind": "shell",
+      "value": "OpenAI.Codex_2p2nqsd0c76g0!App",
+      "title": "ChatGPT",
+      "process": "ChatGPT"
+    }
+  }
+}

@@ -1,0 +1,66 @@
+# Repository / editor
+.vscode/
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+
+# Backend private/runtime files
+PC-Backend/config.json
+PC-Backend/state.db
+PC-Backend/logs/
+PC-Backend/runtime/
+PC-Backend/__pycache__/
+PC-Backend/*.bak
+PC-Backend/*.bak.*
+PC-Backend/*.universal.bak
+PC-Backend/*.uia.bak
+PC-Backend/.env
+PC-Backend/.env.*
+!PC-Backend/.env.example
+
+# Flutter / Dart
+Mobile-App-Flutter/.dart_tool/
+Mobile-App-Flutter/.flutter-plugins
+Mobile-App-Flutter/.flutter-plugins-dependencies
+Mobile-App-Flutter/.packages
+Mobile-App-Flutter/build/
+Mobile-App-Flutter/.idea/
+Mobile-App-Flutter/*.iml
+Mobile-App-Flutter/.backup-pre-scaffold/
+Mobile-App-Flutter/android/.gradle/
+Mobile-App-Flutter/android/.kotlin/
+Mobile-App-Flutter/android/build/
+Mobile-App-Flutter/android/local.properties
+Mobile-App-Flutter/ios/Flutter/ephemeral/
+Mobile-App-Flutter/macos/Flutter/ephemeral/
+Mobile-App-Flutter/windows/flutter/ephemeral/
+Mobile-App-Flutter/linux/flutter/ephemeral/
+
+# Android signing / secrets
+*.jks
+*.keystore
+key.properties
+android/key.properties
+
+# Distribution binaries
+Mobile-App-Flutter/dist/
+*.apk
+*.aab
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+NVIDIA Corporation/

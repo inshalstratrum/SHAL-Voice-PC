@@ -1,0 +1,24 @@
+name: shal_voice_pc
+description: Native mobile voice controller for the SHAL PC.
+publish_to: "none"
+version: 0.4.0+6
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: any
+  speech_to_text: any
+  flutter_tts: any
+  flutter_secure_storage: any
+  audioplayers: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: any
+
+flutter:
+  uses-material-design: true

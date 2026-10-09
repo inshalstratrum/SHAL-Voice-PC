@@ -1,0 +1,44 @@
+PHONE REQUIRED STEPS - POCO C65
+
+Everything below is blocked from silent automation by POCO/Android security and needs a one-time tap in the phone UI.
+
+1. Install SHAL Voice PC
+- Unlock the phone.
+- Open Files / File Manager -> Download.
+- Install: SHAL-Voice-PC-v0.1.0.apk
+- Android/POCO currently blocks silent ADB installation on this device.
+
+2. Keep Tailscale reliable in the background
+- Settings -> Apps -> Tailscale -> Battery -> No restrictions.
+- Autostart -> ON.
+- Settings -> VPN -> Tailscale -> Always-on VPN -> ON.
+- Leave "Block connections without VPN" OFF.
+- Keep the Tailscale tunnel connected.
+- Lock Tailscale in Recents if your POCO offers the padlock option.
+
+3. Keep RustDesk reliable in the background
+- Settings -> Apps -> RustDesk -> Notifications -> Allow notifications.
+- Battery -> No restrictions.
+- Autostart -> ON.
+- Allow background/floating-window permissions if offered.
+- Lock RustDesk in Recents if available.
+
+Already applied automatically
+- Android device-idle whitelist: Tailscale.
+- Android device-idle whitelist: RustDesk.
+- RUN_ANY_IN_BACKGROUND is allowed for both.
+- Latest SHAL Voice PC APK is already copied to:
+  /sdcard/Download/SHAL-Voice-PC-v0.1.0.apk
+
+4. Pair SHAL Voice PC
+On the Windows PC:
+- Open Control-Center & Switch-Board.
+- SHAL Voice PC Agent -> Copy Phone Pairing.
+
+On the phone:
+- Open SHAL Voice PC -> Settings.
+- Paste Server.
+- Paste Pairing key.
+- Tap Save & Test.
+
+Then on the Windows Switch-Board click Phone Post-Setup once. It verifies the installation, grants what ADB is allowed to grant, reapplies background exemptions, opens Tailscale, and launches SHAL Voice PC.
